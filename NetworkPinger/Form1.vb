@@ -50,9 +50,20 @@ Public Class Form1
         Dim ip As String = txtIpAddress.Text.Trim()
         Dim desc As String = txtDescription.Text.Trim()
 
-        If String.IsNullOrWhiteSpace(ip) Then
+        If String.IsNullOrWhiteSpace(ip) Then 'validacion de que el campo no este vacio
             MessageBox.Show("La dirección IP/Hostname no puede estar vacía.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
+        End If
+
+        'aqui se tratara de parsear la direccion ip´
+        Dim parsedIp As System.Net.IPAddress
+
+        If Net.IPAddress.TryParse(ip, address:=parsedIp) Then
+        Else
+            If ip.Contains(".") OrElse ip.Contains(":") Then
+                MessageBox.Show("La dirección IP/Hostname no es válida. Asegúrate de que sea una dirección IP válida.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
         End If
 
         Try
@@ -73,9 +84,22 @@ Public Class Form1
         Dim ip As String = txtIpAddress.Text.Trim()
         Dim desc As String = txtDescription.Text.Trim()
 
+
         If String.IsNullOrWhiteSpace(ip) Then
-            MessageBox.Show("La dirección IP/Hostname no puede estar vacía.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("La dirección IP / Hostname no puede estar vacía.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
+        End If
+
+        Dim parsedIp As System.Net.IPAddress
+
+        If Net.IPAddress.TryParse(ip, address:=parsedIp) Then
+
+        Else
+
+            If ip.Contains(".") OrElse ip.Contains(":") Then
+                MessageBox.Show("El formato de la dirección IP no es válido. Por favor, introduce una IP válida (ej. 192.168.1.1).", "Formato Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
         End If
 
         Try
@@ -139,6 +163,8 @@ Public Class Form1
         Dim unreachableDevices As New List(Of String)
         Dim pingTasks As New List(Of Task(Of PingReply))
 
+        'MessageBox.Show("Iniciando el proceso de ping. Por favor, espera mientras se verifica la conectividad de los equipos.")
+
         ' Crear una lista de tareas de ping
         For Each device In devicesToPing
             pingTasks.Add(PingDeviceAsync(device.IpAddress))
@@ -166,9 +192,7 @@ Public Class Form1
         Next
 
         If unreachableDevices.Count > 0 Then
-            MessageBox.Show($"Algunos Equipos no Fueron alcanzados")
-            '{Environment.NewLine}{String.Join(Environment.NewLine, unreachableDevices)}",
-            '"Resultados del Ping", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show($"Los siguientes equipos no fueron alcanzados:{Environment.NewLine}{String.Join(Environment.NewLine, unreachableDevices)}", "Resultados del Ping", CType(CStr(MessageBoxButtons.OK), MessageBoxButtons), MessageBoxIcon.Warning)
         Else
             MessageBox.Show("¡Todos los equipos fueron alcanzados! Todos los equipos están encendidos.",
                             "Resultados del Ping", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -183,7 +207,7 @@ Public Class Form1
                 reply = Await pinger.SendPingAsync(ipAddress, 4000)
             Catch ex As PingException
                 ' Esto captura errores específicos del ping, como "Host desconocido"
-                ' Puedes loguear el error si lo deseas: Console.WriteLine($"Ping error for {ipAddress}: {ex.Message}")
+                ' Puedes loguear el error si lo deseas: Console.WriteLine($"Ping error for {ipAddress}:  {ex.Message}")
                 Return Nothing ' Retornar Nothing o un PingReply con un estado de error
             Catch ex As Exception
                 ' Capturar cualquier otra excepción inesperada
@@ -194,7 +218,7 @@ Public Class Form1
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        MsgBox("Esta aplicacion fuen desarrollada por JORTEGAE Espero que sea de utilidad  =)")
+        MessageBox.Show("Esta aplicacion fuen desarrollada por JORTEGAE Espero que sea de utilidad  =)")
 
     End Sub
 
@@ -223,7 +247,7 @@ Public Class Form1
         End Using
     End Sub
 
-    Private Async Function btnImportDb_ClickAsync(sender As Object, e As EventArgs) As Task Handles btnImportDb.Click
+    Private Async Function BtnImportDb_ClickAsync(sender As Object, e As EventArgs) As Task Handles btnImportDb.Click
         Using openFileDialog As New OpenFileDialog()
             openFileDialog.Filter = "Archivos de Base de Datos SQLite (*.db)|*.db|Todos los archivos (*.*)|*.*"
             openFileDialog.FileName = "devices.db" ' Nombre de archivo predeterminado
@@ -264,4 +288,34 @@ Public Class Form1
             End If
         End Using
     End Function
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+        Dim helpText As String = ""
+
+        helpText &= "¡Bienvenido al pingeador! Aquí te explico cómo usarlo:" & Environment.NewLine & Environment.NewLine
+
+        helpText &= "1. Gestión de Equipos:" & Environment.NewLine
+        helpText &= "   - Para AGREGAR un nuevo equipo: Ingresa la 'Dirección IP  y una 'Descripción' (ej. 'Ironman | L27', 'PCB | D2'), luego haz clic en el botón 'Agregar Equipo'." & Environment.NewLine
+        helpText &= "   - Para ACTUALIZAR los datos un equipo existente: Haz click en la base de datos sobre la ->, se seleccionara la direccion y la descripcion. Sus datos aparecerán en los campos de texto. Modifícalos y haz clic en 'Actualizar Datos'." & Environment.NewLine
+        helpText &= "   - Para ELIMINAR un equipo: Selecciona el equipo en la tabla y haz clic en 'Eliminar Equipo'." & Environment.NewLine & Environment.NewLine
+
+        helpText &= "2. Realizar Ping a Equipos:" & Environment.NewLine
+        helpText &= "   - Haz clic en el botón 'Iniciar Ping'. El programa intentará comunicarse con cada equipo en tu lista." & Environment.NewLine
+        helpText &= "   - Los resultados se mostrarán en la lista Derecha: '✅' si fue alcanzado, '❌' si no." & Environment.NewLine
+        helpText &= "   - Al finalizar, un mensaje te informará si todos los equipos están encendidos o si no fueron alcanzados." & Environment.NewLine & Environment.NewLine
+
+        helpText &= "3. Gestión de la Base de Datos:" & Environment.NewLine
+        helpText &= "   - EXPORTAR Base de Datos: Guarda una copia de tu lista de equipos en un archivo '.db' en la ubicación que elijas. Útil para copias de seguridad." & Environment.NewLine
+        helpText &= "   - IMPORTAR Base de Datos: Carga una lista de equipos desde un archivo '.db'. ¡CUIDADO! Esto reemplazará tu base de datos actual." & Environment.NewLine & Environment.NewLine
+
+        helpText &= "¡Espero que te sea de gran utilidad!"
+
+        MessageBox.Show(helpText, "Ayuda - Cómo Usar el Programa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
+
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+
+    End Sub
 End Class

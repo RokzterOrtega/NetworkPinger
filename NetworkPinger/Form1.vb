@@ -163,8 +163,6 @@ Public Class Form1
         Dim unreachableDevices As New List(Of String)
         Dim pingTasks As New List(Of Task(Of PingReply))
 
-        'MessageBox.Show("Iniciando el proceso de ping. Por favor, espera mientras se verifica la conectividad de los equipos.")
-
         ' Crear una lista de tareas de ping
         For Each device In devicesToPing
             pingTasks.Add(PingDeviceAsync(device.IpAddress))
@@ -218,7 +216,7 @@ Public Class Form1
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        MessageBox.Show("Esta aplicacion fuen desarrollada por JORTEGAE Espero que sea de utilidad  =)")
+        MessageBox.Show("Esta aplicacion fue desarrollada por JORTEGAE enn el IEPC. Espero que sea de utilidad  =)")
 
     End Sub
 

@@ -266,9 +266,9 @@ Partial Class Form1
         Label4.ForeColor = Color.Lime
         Label4.Location = New Point(1670, -1)
         Label4.Name = "Label4"
-        Label4.Size = New Size(185, 45)
+        Label4.Size = New Size(223, 45)
         Label4.TabIndex = 19
-        Label4.Text = "Version: 3.6"
+        Label4.Text = "Version: 3.7.1d"
         ' 
         ' Label5
         ' 

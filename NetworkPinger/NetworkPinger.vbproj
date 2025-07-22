@@ -6,7 +6,12 @@
     <StartupObject>Sub Main</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
+    <ApplicationIcon>ford_logo_icon_169155.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="ford_logo_icon_169155.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Import Include="System.Data" />

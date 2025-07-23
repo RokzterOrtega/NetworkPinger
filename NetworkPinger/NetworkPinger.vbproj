@@ -6,11 +6,11 @@
     <StartupObject>Sub Main</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
-    <ApplicationIcon>ford_logo_icon_169155.ico</ApplicationIcon>
+    <ApplicationIcon>cloud_search_icon_137745.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="ford_logo_icon_169155.ico" />
+    <Content Include="cloud_search_icon_137745.ico" />
   </ItemGroup>
 
   <ItemGroup>

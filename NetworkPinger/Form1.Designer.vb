@@ -160,7 +160,7 @@ Partial Class Form1
         lbResults.ForeColor = Color.Lime
         lbResults.FormattingEnabled = True
         lbResults.HorizontalScrollbar = True
-        lbResults.Location = New Point(1058, 44)
+        lbResults.Location = New Point(1058, 55)
         lbResults.Name = "lbResults"
         lbResults.Size = New Size(840, 836)
         lbResults.TabIndex = 9
@@ -218,10 +218,11 @@ Partial Class Form1
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.ForeColor = Color.Lime
+        Label3.Font = New Font("Microsoft Sans Serif", 9F, FontStyle.Bold)
+        Label3.ForeColor = SystemColors.ActiveCaptionText
         Label3.Location = New Point(250, 9)
         Label3.Name = "Label3"
-        Label3.Size = New Size(165, 32)
+        Label3.Size = New Size(183, 29)
         Label3.TabIndex = 15
         Label3.Text = "Base de Datos"
         ' 
@@ -262,32 +263,35 @@ Partial Class Form1
         ' Label4
         ' 
         Label4.AutoSize = True
+        Label4.BackColor = Color.Silver
+        Label4.BorderStyle = BorderStyle.Fixed3D
         Label4.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        Label4.ForeColor = Color.Lime
-        Label4.Location = New Point(1670, -1)
+        Label4.ForeColor = Color.Brown
+        Label4.Location = New Point(1673, 5)
         Label4.Name = "Label4"
-        Label4.Size = New Size(223, 45)
+        Label4.Size = New Size(188, 47)
         Label4.TabIndex = 19
-        Label4.Text = "Version: 3.7.1d"
+        Label4.Text = "Version: 3.8"
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.ForeColor = Color.Lime
-        Label5.Location = New Point(763, 9)
+        Label5.Font = New Font("Microsoft Sans Serif", 9F, FontStyle.Bold)
+        Label5.ForeColor = SystemColors.ActiveCaptionText
+        Label5.Location = New Point(740, 9)
         Label5.Name = "Label5"
-        Label5.Size = New Size(220, 32)
+        Label5.Size = New Size(243, 29)
         Label5.TabIndex = 20
         Label5.Text = "Gestion de Equipos"
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.ForeColor = Color.Lime
+        Label6.Font = New Font("Microsoft Sans Serif", 9F, FontStyle.Bold)
+        Label6.ForeColor = SystemColors.ActiveCaptionText
         Label6.Location = New Point(1341, 12)
         Label6.Name = "Label6"
-        Label6.Size = New Size(239, 32)
+        Label6.Size = New Size(248, 29)
         Label6.TabIndex = 21
         Label6.Text = "Resultados del Ping"
         ' 
@@ -295,7 +299,8 @@ Partial Class Form1
         ' 
         AutoScaleDimensions = New SizeF(13F, 32F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = SystemColors.ActiveCaptionText
+        AutoValidate = AutoValidate.Disable
+        BackColor = SystemColors.Control
         ClientSize = New Size(1900, 940)
         Controls.Add(Label6)
         Controls.Add(Label5)
@@ -309,7 +314,8 @@ Partial Class Form1
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         MaximizeBox = False
         Name = "Form1"
-        Text = "Pingeador"
+        Text = "NetworkPinger"
+        TransparencyKey = Color.FromArgb(CByte(192), CByte(192), CByte(255))
         CType(dgvDevices, ComponentModel.ISupportInitialize).EndInit()
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
